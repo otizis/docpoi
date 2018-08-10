@@ -24,17 +24,15 @@ public class ExportControl
         params.put("${name}", "safasdfa");
         params.put("${sex}", "111");
 
-//        List<Map<String, Object>> applyList = new ArrayList<Map<String, Object>>();
-//
-//        for (int i = 0; i < 4; i++)
-//        {
-//            Map<String, Object> apply = new HashMap<String, Object>();
-//            apply.put("${name}", "safasdfa" + i);
-//            apply.put("${sex}", "111"+i);
-//            applyList.add(apply);
-//        }
-//
-//        params.put("applyList", applyList);
+        List<Map<String, Object>> applyList = new ArrayList<Map<String, Object>>();
+        for (int i = 0; i < 4; i++)
+        {
+            Map<String, Object> apply = new HashMap<String, Object>();
+            apply.put("${name}", "safasdfa" + i);
+            apply.put("${sex}", "111"+i);
+            applyList.add(apply);
+        }
+        params.put("applyList", applyList);
 
         new ExportControl().exportWord(params);
     }
@@ -48,7 +46,7 @@ public class ExportControl
 
         XwpfUtil xwpfUtil = new XwpfUtil();
         //读入word模板
-        InputStream is = new FileInputStream(new File("tpl2.docx"));
+        InputStream is = new FileInputStream(new File("tpl.docx"));
         xwpfUtil.exportWord(params, is, xwpfUtil);
     }
 

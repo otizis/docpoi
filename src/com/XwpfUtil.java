@@ -93,25 +93,21 @@ public class XwpfUtil
                         int pos = doc.getPosOfParagraph(xwpfParagraph);
                         doc.removeBodyElement(pos);
                     }
-                }
-                else
-                    {
-                    for (int i = 1; i < size; i++)
-                    {
-                        for (XWPFParagraph xwpfParagraph : tmp)
-                        {
+                } else {
+                    for (int i = 0; i < size; i++) {
+                        for (XWPFParagraph xwpfParagraph : tmp) {
+
                             XmlCursor xmlCursor = start.getCTP().newCursor();
                             XWPFParagraph newParagraph = doc.insertNewParagraph(xmlCursor);
 
 
-                            cloneParagraph(newParagraph,xwpfParagraph);
+                            cloneParagraph(newParagraph, xwpfParagraph);
+                            this.replaceInPara(newParagraph, list.get(i));
 
 //                            copyAllRunsToAnotherParagraph( xwpfParagraph,  );
                         }
                     }
                 }
-
-
 
                 int posOfParagraph = doc.getPosOfParagraph(start);
                 doc.removeBodyElement(posOfParagraph);
@@ -119,8 +115,15 @@ public class XwpfUtil
                 break;
             }
         }
-        if(key != null){
-            replaceInPara(doc,params);
+        this.replaceInPara2(doc,params);
+    }
+
+    public void replaceInPara2(XWPFDocument doc, Map<String, Object> params)
+    {
+        Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
+        while (iterator.hasNext()){
+            XWPFParagraph para = iterator.next();
+            this.replaceInPara(para, params);
         }
     }
 
